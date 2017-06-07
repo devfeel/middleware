@@ -2,9 +2,11 @@
 dotweb middleware for jwt.
 
 ## Install
-`go get -u github.com/devfeel/middleware`
+```
+go get -u github.com/devfeel/middleware
+```
 
-## 使用：
+## Code：
 ```
 // 设置jwt选项
 option := &jwt.Config{
@@ -15,7 +17,7 @@ option := &jwt.Config{
 app.AppContext.Set("SimpleJwtConfig", option)
 server.Router().GET("/", Index).Use(jwt.NewJWT(option))
 ```
-## 配置：
+## Config：
 
 ### Name `string`
 
