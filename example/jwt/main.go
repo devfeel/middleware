@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/devfeel/dotweb"
-	"github.com/devfeel/middleware/dotweb/jwt"
+	"github.com/devfeel/middleware/jwt"
 	"strconv"
 	"time"
 )
