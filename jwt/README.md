@@ -8,6 +8,8 @@ go get -u github.com/devfeel/middleware
 
 ## Code：
 ```
+import "github.com/devfeel/middleware/jwt"
+
 // 设置jwt选项
 option := &jwt.Config{
   SigningKey: []byte("devfeel/dotweb"), //must input
