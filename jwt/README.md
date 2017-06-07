@@ -1,6 +1,9 @@
 # jwt
 dotweb middleware for jwt.
 
+## Install
+`go get -u github.com/devfeel/middleware`
+
 ## 使用：
 ```
 // 设置jwt选项
