@@ -97,7 +97,7 @@ func (m *JWTMiddleware) Handle(ctx dotweb.Context) error {
 }
 
 // New create a JWT Middleware
-func NewJWT(config *Config) *JWTMiddleware {
+func Middleware(config *Config) *JWTMiddleware {
 	if config.Name == "" {
 		config.Name = DefaultJWTConfig.Name
 	}

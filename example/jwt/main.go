@@ -91,7 +91,7 @@ func NewSimpleJwt(app *dotweb.DotWeb) dotweb.Middleware {
 		Extractor: jwt.ExtractorFromCookie,
 	}
 	app.AppContext.Set("SimpleJwtConfig", option)
-	return jwt.NewJWT(option)
+	return jwt.Middleware(option)
 }
 
 func NewCustomJwt(app *dotweb.DotWeb) dotweb.Middleware {
@@ -126,7 +126,7 @@ func NewCustomJwt(app *dotweb.DotWeb) dotweb.Middleware {
 
 	app.AppContext.Set("CustomJwtConfig", option)
 
-	return jwt.NewJWT(option)
+	return jwt.Middleware(option)
 }
 
 func parseJwtConfig(c interface{}, exists bool) (config *jwt.Config) {

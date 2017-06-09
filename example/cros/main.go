@@ -7,8 +7,6 @@ import (
 	"strconv"
 )
 
-const JwtContextKey = "jwtuser"
-
 func main() {
 	//初始化DotServer
 	app := dotweb.New()
@@ -66,7 +64,7 @@ func InitRoute(server *dotweb.HttpServer) {
 // allowedP3P = "CP=\"CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\""
 func NewSimpleCROS() dotweb.Middleware {
 	option := cros.NewConfig().UseDefault()
-	return cros.NewMiddleware(option)
+	return cros.Middleware(option)
 }
 
 func NewCustomCROS() dotweb.Middleware {
@@ -74,5 +72,5 @@ func NewCustomCROS() dotweb.Middleware {
 	option.SetHeader("Content-Type")
 	option.SetMethod("GET, POST")
 	option.Enabled()
-	return cros.NewMiddleware(option)
+	return cros.Middleware(option)
 }

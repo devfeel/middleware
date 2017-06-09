@@ -91,6 +91,6 @@ func (m *CROSMiddleware) Handle(ctx dotweb.Context) error {
 }
 
 // New create a CROS Middleware
-func NewMiddleware(config *Config) *CROSMiddleware {
+func Middleware(config *Config) *CROSMiddleware {
 	return &CROSMiddleware{config: config}
 }
