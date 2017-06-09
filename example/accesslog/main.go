@@ -47,6 +47,6 @@ func NoLog(ctx dotweb.Context) error {
 }
 
 func InitRoute(server *dotweb.HttpServer) {
-	server.Router().GET("/", Index).Use(accesslog.Middleware())
-	server.Router().GET("/nolog", NoLog)
+	server.GET("/", Index).Use(accesslog.Middleware())
+	server.GET("/nolog", NoLog)
 }
