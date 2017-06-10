@@ -1,4 +1,4 @@
-package cros
+package cors
 
 import (
 	"github.com/devfeel/dotweb"
@@ -71,12 +71,12 @@ func NewConfig() *Config {
 }
 
 //jwt中间件
-type CROSMiddleware struct {
+type CORSMiddleware struct {
 	dotweb.BaseMiddlware
 	config *Config
 }
 
-func (m *CROSMiddleware) Handle(ctx dotweb.Context) error {
+func (m *CORSMiddleware) Handle(ctx dotweb.Context) error {
 	if m.config.enabledCROS {
 		ctx.Response().SetHeader(dotweb.HeaderAccessControlAllowOrigin, m.config.allowedOrigins)
 		ctx.Response().SetHeader(dotweb.HeaderAccessControlAllowMethods, m.config.allowedMethods)
@@ -91,6 +91,6 @@ func (m *CROSMiddleware) Handle(ctx dotweb.Context) error {
 }
 
 // New create a CROS Middleware
-func Middleware(config *Config) *CROSMiddleware {
-	return &CROSMiddleware{config: config}
+func Middleware(config *Config) *CORSMiddleware {
+	return &CORSMiddleware{config: config}
 }
