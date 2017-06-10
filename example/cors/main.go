@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/devfeel/dotweb"
-	"github.com/devfeel/middleware/cros"
+	"github.com/devfeel/middleware/cors"
 	"strconv"
 )
 
@@ -63,14 +63,14 @@ func InitRoute(server *dotweb.HttpServer) {
 // allowedHeaders = "Content-Type"
 // allowedP3P = "CP=\"CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\""
 func NewSimpleCROS() dotweb.Middleware {
-	option := cros.NewConfig().UseDefault()
-	return cros.Middleware(option)
+	option := cors.NewConfig().UseDefault()
+	return cors.Middleware(option)
 }
 
 func NewCustomCROS() dotweb.Middleware {
-	option := cros.NewConfig()
+	option := cors.NewConfig()
 	option.SetHeader("Content-Type")
 	option.SetMethod("GET, POST")
 	option.Enabled()
-	return cros.Middleware(option)
+	return cors.Middleware(option)
 }
