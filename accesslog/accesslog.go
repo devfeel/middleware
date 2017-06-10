@@ -9,7 +9,7 @@ import (
 
 const logTarget = "dotweb_accesslog"
 
-// New create a CROS Middleware
+// Middleware new create a AccessLog Middleware
 func Middleware() *AccessLogMiddleware {
 	return &AccessLogMiddleware{}
 }
