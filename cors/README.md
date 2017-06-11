@@ -1,4 +1,4 @@
-# CROS
+# CORS
 dotweb middleware for CORS.
 
 ## Install
@@ -10,7 +10,7 @@ go get -u github.com/devfeel/middleware
 ```
 import "github.com/devfeel/middleware/cors"
 
-// 设置jwt选项
+// 设置cors选项
 option := cros.NewConfig().UseDefault()
 server.GET("/", Index).Use(cors.Middleware(option))
 ```
