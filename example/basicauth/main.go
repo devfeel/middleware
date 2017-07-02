@@ -30,8 +30,8 @@ func main()  {
 	//app.SetPProfConfig(true, 8081)
 
 	option := basicauth.BasicAuthOption{}
-	option.Auth= func(name, pass string) bool {
-		if name=="user"&& pass=="123"{
+	option.Auth= func(name, pwd string) bool {
+		if name=="user"&& pwd=="123"{
 			return true
 		}
 		return  false
