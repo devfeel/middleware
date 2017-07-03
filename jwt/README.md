@@ -17,7 +17,7 @@ option := &jwt.Config{
   Extractor: jwt.ExtractorFromCookie,
 }
 app.AppContext.Set("SimpleJwtConfig", option)
-server.Router().GET("/", Index).Use(jwt.NewJWT(option))
+server.Router().GET("/", Index).Use(jwt.Middleware(option))
 ```
 ## Config：
 
