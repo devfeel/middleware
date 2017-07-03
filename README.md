@@ -7,6 +7,6 @@ middleware for dotweb
 * [CORS](https://github.com/devfeel/middleware/tree/master/cors)   -  [example](https://github.com/devfeel/middleware/tree/master/example/cors)
 * [Gzip](https://github.com/devfeel/middleware/tree/master/gzip)   -  [example](https://github.com/devfeel/middleware/tree/master/example/gzip)
 * [authorization based on Casbin](https://github.com/devfeel/middleware/tree/master/authz) - [example](https://github.com/devfeel/middleware/tree/master/example/authz) - [what's Casbin?](https://github.com/casbin/casbin)
-* BasicAuth 
+* [BasicAuth](https://github.com/devfeel/middleware/tree/master/basicauth) - [example](https://github.com/devfeel/middleware/tree/master/example/basicauth)
 * Recover
 * HeaderOverride

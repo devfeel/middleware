@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/devfeel/dotweb"
 	"fmt"
+	"github.com/devfeel/dotweb"
+	"github.com/devfeel/middleware/basicauth"
 	"strconv"
 	"time"
-	"github.com/a526757124/middleware/basicauth"
 )
 
-func main()  {
+func main() {
 	//初始化DotServer
 	app := dotweb.New()
 
@@ -29,14 +29,7 @@ func main()  {
 	//启动 监控服务
 	//app.SetPProfConfig(true, 8081)
 
-	option := basicauth.BasicAuthOption{}
-	option.Auth= func(name, pwd string) bool {
-		if name=="user"&& pwd=="123"{
-			return true
-		}
-		return  false
-	}
-	app.Use(basicauth.Middleware(option))
+	app.Use(NewBasicAuth(app))
 	// 开始服务
 	port := 8080
 	fmt.Println("dotweb.StartServer => " + strconv.Itoa(port))
@@ -58,4 +51,15 @@ func Index1(ctx dotweb.Context) error {
 func InitRoute(server *dotweb.HttpServer) {
 	server.GET("/", Index)
 	server.GET("/index1", Index1)
+}
+
+func NewBasicAuth(app *dotweb.DotWeb) dotweb.Middleware {
+	option := basicauth.BasicAuthOption{}
+	option.Auth = func(name, pwd string) bool {
+		if name == "user" && pwd == "123" {
+			return true
+		}
+		return false
+	}
+	return basicauth.Middleware(option)
 }
