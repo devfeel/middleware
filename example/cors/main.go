@@ -40,7 +40,9 @@ func Index(ctx dotweb.Context) error {
 }
 
 func Simple(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("Simple: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
+	_, err := ctx.WriteString("Simple: ", dotweb.HeaderAccessControlAllowMethods,
+		" => ", ctx.RouterNode(),
+		" => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
 	return err
 }
 
@@ -52,6 +54,7 @@ func NoCros(ctx dotweb.Context) error {
 func InitRoute(server *dotweb.HttpServer) {
 	server.Router().GET("/", Index).Use(NewCustomCROS())
 	server.GET("/simple", Simple).Use(NewSimpleCROS())
+	server.GET("/simple/:key", Simple).Use(NewSimpleCROS())
 	server.Router().GET("/nocros", NoCros)
 }
 
