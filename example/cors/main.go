@@ -4,15 +4,12 @@ import (
 	"fmt"
 	"github.com/devfeel/dotweb"
 	"github.com/devfeel/middleware/cors"
-	"strconv"
 )
 
 func main() {
 	//初始化DotServer
 	app := dotweb.New()
 
-	//设置dotserver日志目录
-	//如果不设置，默认不启用，且默认为当前目录
 	app.SetEnabledLog(true)
 
 	//开启development模式
@@ -21,40 +18,34 @@ func main() {
 	//设置路由
 	InitRoute(app.HttpServer)
 
-	//设置HttpModule
-	//InitModule(app)
-
-	//启动 监控服务
-	//app.SetPProfConfig(true, 8081)
-
 	// 开始服务
 	port := 8080
-	fmt.Println("dotweb.StartServer => " + strconv.Itoa(port))
 	err := app.StartServer(port)
-	fmt.Println("dotweb.StartServer error => ", err)
+	if err != nil {
+		fmt.Println("dotweb.StartServer error => ", err)
+	}
 }
 
 func Index(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("Index: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
-	return err
+	ctx.WriteString("Index: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
+	return nil
 }
 
 func Simple(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("Simple: ", dotweb.HeaderAccessControlAllowMethods,
+	ctx.WriteString("Simple: ", dotweb.HeaderAccessControlAllowMethods,
 		" => ", ctx.RouterNode(),
 		" => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
-	return err
+	return nil
 }
 
 func NoCros(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("NoCros: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
-	return err
+	ctx.WriteString("NoCros: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
+	return nil
 }
 
 func InitRoute(server *dotweb.HttpServer) {
 	server.Router().GET("/", Index).Use(NewCustomCROS())
 	server.GET("/simple", Simple).Use(NewSimpleCROS())
-	server.GET("/simple/:key", Simple).Use(NewSimpleCROS())
 	server.Router().GET("/nocros", NoCros)
 }
 
