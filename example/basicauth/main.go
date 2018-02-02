@@ -39,13 +39,11 @@ func main() {
 
 func Index(ctx dotweb.Context) error {
 	time.Sleep(time.Millisecond * 10)
-	_, err := ctx.WriteString("Authorization")
-	return err
+	return ctx.WriteString("Authorization")
 }
 func Index1(ctx dotweb.Context) error {
 	time.Sleep(time.Millisecond * 10)
-	_, err := ctx.WriteString("index1")
-	return err
+	return ctx.WriteString("index1")
 }
 
 func InitRoute(server *dotweb.HttpServer) {

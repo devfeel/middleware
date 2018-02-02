@@ -57,8 +57,7 @@ func InitRoute(server *dotweb.HttpServer) {
 // allowedHeaders = "Content-Type"
 // allowedP3P = "CP=\"CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\""
 func NewSimpleCROS() dotweb.Middleware {
-	option := cors.NewConfig().UseDefault()
-	return cors.Middleware(option)
+	return cors.DefaultMiddleware()
 }
 
 func NewCustomCROS() dotweb.Middleware {

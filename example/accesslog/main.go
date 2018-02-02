@@ -38,12 +38,10 @@ func main() {
 
 func Index(ctx dotweb.Context) error {
 	time.Sleep(time.Millisecond * 10)
-	_, err := ctx.WriteString("Index Use Accesslog")
-	return err
+	return ctx.WriteString("Index Use Accesslog")
 }
 func NoLog(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("NoLog")
-	return err
+	return ctx.WriteString("NoLog")
 }
 
 func InitRoute(server *dotweb.HttpServer) {

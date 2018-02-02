@@ -42,8 +42,7 @@ func main() {
 
 // Any handles all the test requests.
 func Any(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("Access allowed to: " + ctx.Request().Url())
-	return err
+	return ctx.WriteString("Access allowed to: " + ctx.Request().Url())
 }
 
 // InitRoute initializes all the routes.

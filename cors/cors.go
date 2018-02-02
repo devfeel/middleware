@@ -90,7 +90,13 @@ func (m *CORSMiddleware) Handle(ctx dotweb.Context) error {
 	return nil
 }
 
-// Middleware new create a CORS Middleware
+// Middleware create new CORS Middleware
 func Middleware(config *Config) *CORSMiddleware {
 	return &CORSMiddleware{config: config}
+}
+
+// DefaultMiddleware create new CORS Middleware with default config
+func DefaultMiddleware() *CORSMiddleware {
+	option := NewConfig().UseDefault()
+	return &CORSMiddleware{config: option}
 }

@@ -2,12 +2,9 @@ package main
 
 import (
 	"github.com/devfeel/dotweb"
-	"runtime"
-	"yaml.v2"
 	"fmt"
 	"strconv"
-	"middleware/basicauth"
-	"middleware/etcd"
+	"github.com/devfeel/middleware/etcd"
 )
 
 func main() {
@@ -40,8 +37,7 @@ func main() {
 }
 
 func Index(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("Index: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
-	return err
+	return ctx.WriteString("Index: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
 }
 
 func List(ctx dotweb.Context) error {
@@ -49,15 +45,13 @@ func List(ctx dotweb.Context) error {
 }
 
 func Add(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("Add: ", dotweb.HeaderAccessControlAllowMethods,
+	return ctx.WriteString("Add: ", dotweb.HeaderAccessControlAllowMethods,
 		" => ", ctx.RouterNode(),
 		" => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
-	return err
 }
 
 func NoCros(ctx dotweb.Context) error {
-	_, err := ctx.WriteString("NoCros: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
-	return err
+	return ctx.WriteString("NoCros: ", dotweb.HeaderAccessControlAllowMethods, " => ", ctx.Response().QueryHeader(dotweb.HeaderAccessControlAllowMethods))
 }
 
 

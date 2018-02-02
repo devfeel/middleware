@@ -41,41 +41,35 @@ func main() {
 func Index(ctx dotweb.Context) error {
 	ctx.Response().Header().Set("Content-Type", "text/html; charset=utf-8")
 	payload, exists := ctx.Items().Get(JwtContextKey)
-	_, err := ctx.WriteString("custom jwt context => ", payload, exists)
-	return err
+	return ctx.WriteString("custom jwt context => ", payload, exists)
 }
 
 func Login(ctx dotweb.Context) error {
 	ctx.Response().Header().Set("Content-Type", "text/html; charset=utf-8")
-	config := parseJwtConfig(ctx.AppContext().Get("CustomJwtConfig"))
+	config := parseJwtConfig(ctx.AppItems().Get("CustomJwtConfig"))
 	if config == nil {
-		_, err := ctx.WriteString("custom login failed, token config not exists")
-		return err
+		return ctx.WriteString("custom login failed, token config not exists")
 	}
 	m := make(map[string]interface{})
 	m["userid"] = "loginuser"
 	m["userip"] = ctx.RemoteIP()
 	token, err := jwt.GeneratorToken(config, m)
 	if err != nil || token == "" {
-		_, err := ctx.WriteString("custom login failed, token create failed, ", err.Error())
-		return err
+		return ctx.WriteString("custom login failed, token create failed, ", err.Error())
 	}
 
 	ctx.SetCookieValue(config.Name, token, 0)
-	_, err = ctx.WriteString("custom login is ok, token => ", token)
-	return err
+	return ctx.WriteString("custom login is ok, token => ", token)
 }
 
 func Logout(ctx dotweb.Context) error {
 	ctx.Response().Header().Set("Content-Type", "text/html; charset=utf-8")
-	config := parseJwtConfig(ctx.AppContext().Get("CustomJwtConfig"))
+	config := parseJwtConfig(ctx.AppItems().Get("CustomJwtConfig"))
 	if config == nil {
-		_, err := ctx.WriteString("logout failed, token config not exists")
-		return err
+		return ctx.WriteString("logout failed, token config not exists")
 	}
 	ctx.RemoveCookie(config.Name)
-	_, err := ctx.WriteString("logout is ok")
-	return err
+	return ctx.WriteString("logout is ok")
 }
 
 func InitRoute(server *dotweb.HttpServer) {
@@ -90,7 +84,7 @@ func NewSimpleJwt(app *dotweb.DotWeb) dotweb.Middleware {
 		//use cookie
 		Extractor: jwt.ExtractorFromCookie,
 	}
-	app.AppContext.Set("SimpleJwtConfig", option)
+	app.Items.Set("SimpleJwtConfig", option)
 	return jwt.Middleware(option)
 }
 
@@ -124,7 +118,7 @@ func NewCustomJwt(app *dotweb.DotWeb) dotweb.Middleware {
 		Extractor: jwt.ExtractorFromCookie,
 	}
 
-	app.AppContext.Set("CustomJwtConfig", option)
+	app.Items.Set("CustomJwtConfig", option)
 
 	return jwt.Middleware(option)
 }
