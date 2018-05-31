@@ -25,7 +25,7 @@ func (m *AccessLogMiddleware) Handle(ctx dotweb.Context) error {
 	m.Next(ctx)
 	timetaken := int64(time.Now().Sub(start) / time.Millisecond)
 	log := ctx.Request().Url() + " " + logContext(ctx, timetaken)
-	logger.Logger().Log(log, logTarget, "debug")
+	logger.Logger().Debug(log, logTarget)
 	return nil
 }
 
