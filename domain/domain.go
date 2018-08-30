@@ -4,7 +4,6 @@ import (
 	"github.com/devfeel/dotweb"
 	"errors"
 	"strings"
-	"fmt"
 	"net/http"
 )
 
@@ -86,7 +85,6 @@ type DomainMiddleware struct {
 func (m *DomainMiddleware) Handle(ctx dotweb.Context) error {
 	host := ctx.Request().Host
 	domain := host[0:strings.Index(host, ":")]
-	fmt.Println(host, domain)
 	if m.config.mode == OnlyAllow{
 		if !existsDomain(m.config.allows, domain){
 			return ctx.WriteStringC(http.StatusForbidden, NotAllowTip)
