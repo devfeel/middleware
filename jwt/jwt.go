@@ -92,8 +92,7 @@ func (m *JWTMiddleware) Handle(ctx dotweb.Context) error {
 		m.config.ExceptionHandler(ctx, err)
 		return nil
 	}
-	m.Next(ctx)
-	return nil
+	return m.Next(ctx)
 }
 
 // New create a JWT Middleware

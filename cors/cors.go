@@ -86,8 +86,7 @@ func (m *CORSMiddleware) Handle(ctx dotweb.Context) error {
 		ctx.Response().SetHeader(dotweb.HeaderAccessControlMaxAge, strconv.Itoa(m.config.maxAge))
 		ctx.Response().SetHeader(dotweb.HeaderP3P, m.config.allowedP3P)
 	}
-	m.Next(ctx)
-	return nil
+	return m.Next(ctx)
 }
 
 // Middleware create new CORS Middleware

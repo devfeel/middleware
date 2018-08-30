@@ -15,7 +15,7 @@ func main() {
 	//设置dotserver日志目录
 	//如果不设置，默认不启用，且默认为当前目录
 	app.SetEnabledLog(true)
-	app.SetLogPath("f:/gotmp/middleware/")
+	app.SetLogPath("d:/gotmp/middleware/")
 
 	//开启development模式
 	app.SetDevelopmentMode()

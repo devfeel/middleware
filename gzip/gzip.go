@@ -84,9 +84,7 @@ func (m *GzipMiddleware) Handle(ctx dotweb.Context) error {
 		ctx.Response().SetHeader(dotweb.HeaderContentEncoding, gzipScheme)
 		ctx.Response().SetHeader(dotweb.HeaderVary, dotweb.HeaderAcceptEncoding)
 	}
-	m.Next(ctx)
-
-	return nil
+	return m.Next(ctx)
 }
 
 // Middleware new create a Gzip Middleware

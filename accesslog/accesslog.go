@@ -22,11 +22,11 @@ type AccessLogMiddleware struct {
 // Handle current middleware's handler
 func (m *AccessLogMiddleware) Handle(ctx dotweb.Context) error {
 	start := time.Now()
-	m.Next(ctx)
+	err := m.Next(ctx)
 	timetaken := int64(time.Now().Sub(start) / time.Millisecond)
 	log := ctx.Request().Url() + " " + logContext(ctx, timetaken)
 	logger.Logger().Debug(log, logTarget)
-	return nil
+	return err
 }
 
 // logContext get default log string

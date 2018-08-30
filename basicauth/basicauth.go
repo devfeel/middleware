@@ -30,11 +30,10 @@ func (m *BasicAuthMiddleware) Handle(ctx dotweb.Context) error {
 		return unAuthorized(ctx)
 	}
 	if m.option.Auth(name,pwd){
-		m.Next(ctx)
+		return m.Next(ctx)
 	}else{
 		return unAuthorized(ctx)
 	}
-	return nil
 }
 func unAuthorized(ctx dotweb.Context) error {
 	ctx.Response().SetHeader("WWW-Authenticate","Basic realm=Input User&Password")
