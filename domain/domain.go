@@ -24,6 +24,8 @@ type DomainConfig struct{
 	mode int
 	allows map[string]struct{}
 	rejects map[string]struct{}
+	notAllowHandle dotweb.HttpHandle
+	rejectHandle dotweb.HttpHandle
 }
 
 // NewAllowConfig return new domain config with OnlyAllow mode
@@ -46,8 +48,12 @@ func NewDomainConfig() *DomainConfig{
 		mode : OnlyAllow,
 		allows:make(map[string]struct{}),
 		rejects:make(map[string]struct{}),
+		notAllowHandle:defaultNotAllowHandler,
+		rejectHandle:defaultRejectHandler,
 	}
 }
+
+
 
 // SetMode set check mode, now only support OnlyAllow or OnlyReject
 func (c *DomainConfig) SetMode(mode int){
@@ -68,7 +74,15 @@ func (c *DomainConfig) AddRejectDomain(domain string){
 	c.rejects[domain] = struct{}{}
 }
 
+// SetNotAllowHandle set handler which to be called when host not in allow domains
+func (c *DomainConfig) SetNotAllowHandle(handler dotweb.HttpHandle){
+	c.notAllowHandle = handler
+}
 
+// SetRejectHandle set handler which to be called when host in reject domains
+func (c *DomainConfig) SetRejectHandle(handler dotweb.HttpHandle){
+	c.rejectHandle = handler
+}
 
 // Middleware new create a AccessLog Middleware
 func Middleware(conf *DomainConfig) *DomainMiddleware {
@@ -87,12 +101,12 @@ func (m *DomainMiddleware) Handle(ctx dotweb.Context) error {
 	domain := host[0:strings.Index(host, ":")]
 	if m.config.mode == OnlyAllow{
 		if !existsDomain(m.config.allows, domain){
-			return ctx.WriteStringC(http.StatusForbidden, NotAllowTip)
+			return m.config.notAllowHandle(ctx)
 		}
 	}
 	if m.config.mode == OnlyReject{
 		if existsDomain(m.config.rejects, domain){
-			return ctx.WriteStringC(http.StatusForbidden, RejectedTip)
+			return m.config.rejectHandle(ctx)
 		}
 	}
 	err := m.Next(ctx)
@@ -103,4 +117,12 @@ func (m *DomainMiddleware) Handle(ctx dotweb.Context) error {
 func existsDomain(m map[string]struct{}, domain string) bool{
 	_, exists := m[domain]
 	return exists
+}
+
+func defaultNotAllowHandler(ctx dotweb.Context) error{
+	return ctx.WriteStringC(http.StatusForbidden, NotAllowTip)
+}
+
+func defaultRejectHandler(ctx dotweb.Context) error{
+	return ctx.WriteStringC(http.StatusForbidden, RejectedTip)
 }
