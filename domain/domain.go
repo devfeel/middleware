@@ -3,8 +3,8 @@ package domain
 import (
 	"github.com/devfeel/dotweb"
 	"errors"
-	"strings"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -98,14 +98,17 @@ type DomainMiddleware struct {
 // Handle current middleware's handler
 func (m *DomainMiddleware) Handle(ctx dotweb.Context) error {
 	host := ctx.Request().Host
-	domain := host[0:strings.Index(host, ":")]
+	index := strings.Index(host, ":")
+	if index >= 0{
+		host = host[0:index]
+	}
 	if m.config.mode == OnlyAllow{
-		if !existsDomain(m.config.allows, domain){
+		if !existsDomain(m.config.allows, host){
 			return m.config.notAllowHandle(ctx)
 		}
 	}
 	if m.config.mode == OnlyReject{
-		if existsDomain(m.config.rejects, domain){
+		if existsDomain(m.config.rejects, host){
 			return m.config.rejectHandle(ctx)
 		}
 	}
