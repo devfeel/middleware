@@ -3,7 +3,6 @@ package accesslog
 import (
 	"github.com/devfeel/dotweb"
 	"github.com/devfeel/dotweb/framework/convert"
-	"github.com/devfeel/dotweb/logger"
 	"time"
 )
 
@@ -25,7 +24,7 @@ func (m *AccessLogMiddleware) Handle(ctx dotweb.Context) error {
 	err := m.Next(ctx)
 	timetaken := int64(time.Now().Sub(start) / time.Millisecond)
 	log := ctx.Request().Url() + " " + logContext(ctx, timetaken)
-	logger.Logger().Debug(log, logTarget)
+	ctx.HttpServer().Logger().Debug(log, logTarget)
 	return err
 }
 
