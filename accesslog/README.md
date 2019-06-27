@@ -1,5 +1,7 @@
 # AccessLog
-dotweb middleware for AccessLog.
+dotweb middleware for logging HTTP requests in the Apache Common Log Format.
+
+Log Format: http://httpd.apache.org/docs/2.2/logs.html#common
 
 ## Install
 ```
@@ -10,7 +12,6 @@ go get -u github.com/devfeel/middleware
 ```
 import "github.com/devfeel/middleware/accesslog"
 
-// 设置jwt选项
 server.GET("/", Index).Use(accesslog.Middleware())
 ```
 ## Config:
@@ -19,7 +20,6 @@ server.GET("/", Index).Use(accesslog.Middleware())
 
 default:
 * use dotweb.logger
-* use debug level
-* logtarget is "dotweb_accesslog", like "dotweb_accesslog_debug_2017_06_09.log"
-* logformat: method userip proto status reqbytelen resbytelen timetaken
-* log-example: [debug] 2017-06-09 08:38:10.416369 [middleware.go:49] / GET 127.0.0.1 HTTP/1.1 200 0 19 10
+* use raw level
+* logtarget is "dotweb_accesslog", like "dotweb_accesslog_2017_06_09.log"
+* log-example: 127.0.0.1 - frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326

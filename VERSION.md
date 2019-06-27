@@ -1,5 +1,9 @@
 # dotweb - middleware
 
+#### Version 1.3
+* Add AccessLog middleware for logging HTTP requests in the Apache Common Log Format.
+* 2019-6-26 23:00
+
 #### Version 1.2
 * Update log call for dotweb version 1.6.3
 * 2019-6-13 12:00
