@@ -72,7 +72,7 @@ func NewConfig() *Config {
 
 //jwt中间件
 type CORSMiddleware struct {
-	dotweb.BaseMiddlware
+	dotweb.BaseMiddleware
 	config *Config
 }
 

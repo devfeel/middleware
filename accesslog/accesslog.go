@@ -20,7 +20,7 @@ func Middleware() *AccessLogMiddleware {
 // Format: http://httpd.apache.org/docs/2.2/logs.html#common
 // Write at 深圳华安大酒店
 type AccessLogMiddleware struct {
-	dotweb.BaseMiddlware
+	dotweb.BaseMiddleware
 }
 
 // Handle current middleware's handler

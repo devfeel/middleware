@@ -62,7 +62,7 @@ func NewConfig() *Config {
 
 // GzipMiddleware middleware with gzip
 type GzipMiddleware struct {
-	dotweb.BaseMiddlware
+	dotweb.BaseMiddleware
 	config *Config
 }
 
